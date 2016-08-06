@@ -23,7 +23,7 @@
             <ComboBoxItem Content="RU"/>
             <ComboBoxItem Content="TR"/>
         </ComboBox>
-        <Button x:Name="button" Content="Refresh" HorizontalAlignment="Left" Margin="45,290,0,0" VerticalAlignment="Top" Width="120" Height="50" Click="doMagic"/>
+        <Button x:Name="button" Content="Refresh" HorizontalAlignment="Left" Margin="45,290,0,0" VerticalAlignment="Top" Width="120" Height="50" Click="doMagic" Background="AliceBlue"/>
         <Image x:Name="summonerIcon" HorizontalAlignment="Left" Height="100" Margin="45,100,0,0" VerticalAlignment="Top" Width="100" Stretch="Fill"/>
         <Label x:Name="idLbl" Content="ID: " HorizontalAlignment="Left" Margin="170,100,0,0" VerticalAlignment="Top"/>
         <Label x:Name="nameLbl" Content="Name: " HorizontalAlignment="Left" Margin="170,125,0,0" VerticalAlignment="Top"/>
@@ -33,6 +33,7 @@
         <Label x:Name="gameTyp" Content="Game type: " HorizontalAlignment="Left" Margin="370,100,0,0" VerticalAlignment="Top"/>
         <Label x:Name="gameMod" Content="Game mode: " HorizontalAlignment="Left" Margin="370,125,0,0" VerticalAlignment="Top"/>
         <Label x:Name="gameMap" Content="Map: " HorizontalAlignment="Left" Margin="370,150,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="gameNotFoundLbl" Content="No current game data was found!" HorizontalAlignment="Left" Margin="456,108,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
 
     </Grid>
 </Window>

@@ -17,11 +17,12 @@ namespace lolapitestwpf
         private string name = "";
         private string region = "";
         private string id = "";
-        private string[] reglist = { "BR1","EUN1","EUW1","JP1","KR","LA1","LA2","NA1","OC1","PBE1","RU","TR1" };
+        private string[] reglist = { "BR1", "EUN1", "EUW1", "JP1", "KR", "LA1", "LA2", "NA1", "OC1", "PBE1", "RU", "TR1" };
 
         private Dictionary<string, string> Summoner;
         private dynamic currentGameInfo;
 
+        private Window errorWindow1 = new errorWindow();
 
         private string dlBasicInfoJson(string region, string jsonadd1, string jsonadd2)
         {
@@ -35,13 +36,29 @@ namespace lolapitestwpf
             return client.DownloadString("https://" + region + jsonadd + reglist[regionPicker.SelectedIndex] + "/" + id + apikey);
         }
 
+        private void setCurrentGameNotFound()
+        {
+            gameMap.Visibility = Visibility.Hidden;
+            gameMod.Visibility = Visibility.Hidden;
+            gameTyp.Visibility = Visibility.Hidden;
+            gameNotFoundLbl.Visibility = Visibility.Visible;
+        }
+
         private void getBasicInfo()
         {
-            string summonerInfo = dlBasicInfoJson(region, ".api.pvp.net/api/lol/", "/v1.4/summoner/by-name/");
-            summonerInfo = summonerInfo.Remove(0, 4 + name.Length);
-            summonerInfo = summonerInfo.Remove(summonerInfo.Length - 1);
-            Summoner = JsonConvert.DeserializeObject<Dictionary<string, string>>(summonerInfo);
-            id = Summoner["id"];
+            setSummoner();
+            if (region == "" || name == "")
+            {
+                errorWindow1.Show();
+            }
+            else
+            {
+                string summonerInfo = dlBasicInfoJson(region, ".api.pvp.net/api/lol/", "/v1.4/summoner/by-name/");
+                summonerInfo = summonerInfo.Remove(0, 4 + name.Length);
+                summonerInfo = summonerInfo.Remove(summonerInfo.Length - 1);
+                Summoner = JsonConvert.DeserializeObject<Dictionary<string, string>>(summonerInfo);
+                id = Summoner["id"];
+            }
         }
 
         private void setBasicInfo()
@@ -51,7 +68,7 @@ namespace lolapitestwpf
             levelLbl.Content = "Level: " + Summoner["summonerLevel"];
             summonerIcon.Source = (ImageSource)new ImageSourceConverter().ConvertFromString("http://ddragon.leagueoflegends.com/cdn/6.15.1/img/profileicon/" + Summoner["profileIconId"] + ".png");
         }
-        
+
         private void getCurrentInfo()
         {
             string currentGameInfoJ = dlCurrentGameJson(".api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/");
@@ -76,14 +93,15 @@ namespace lolapitestwpf
         {
             name = nameBox.Text;
             region = regionPicker.Text.ToLower();
-            
         }
 
         private void doMagic(object sender, RoutedEventArgs e)
         {
-            setSummoner();
             getBasicInfo();
-            updateUI();
+            if (!errorWindow1.IsVisible)
+            {
+                updateUI();
+            }
         }
 
         private void getCurrentGame(object sender, RoutedEventArgs e)
