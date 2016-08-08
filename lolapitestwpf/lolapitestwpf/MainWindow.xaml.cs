@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace lolapitestwpf
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
@@ -45,7 +46,7 @@ namespace lolapitestwpf
             var status = response.StatusCode;
             if (status == HttpStatusCode.NotFound || status == HttpStatusCode.Forbidden)
             {
-                _errorWindow1.Show();
+                _errorWindow1.Visibility = Visibility.Visible;
                 return "404";
             }
             else
@@ -68,7 +69,7 @@ namespace lolapitestwpf
             SetSummoner();
             if (_region == "" || _name == "")
             {
-                _errorWindow1.Show();
+                _errorWindow1.Visibility = Visibility.Visible;
             }
             else
             {
@@ -125,7 +126,7 @@ namespace lolapitestwpf
         private void DoMagic(object sender, RoutedEventArgs e)
         {
             GetBasicInfo();
-            if (!_errorWindow1.IsVisible)
+            if (_errorWindow1.Visibility == Visibility.Collapsed)
             {
                 UpdateUi();
             }
@@ -133,11 +134,10 @@ namespace lolapitestwpf
 
         private void GetCurrentGame(object sender, RoutedEventArgs e)
         {
-            if (!_errorWindow1.IsVisible)
+            if (_errorWindow1.Visibility == Visibility.Collapsed)
             {
                 SetCurrentInfo();
             }
-            
         }
     }
 }

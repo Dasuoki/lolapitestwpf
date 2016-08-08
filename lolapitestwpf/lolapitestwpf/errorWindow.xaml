@@ -1,10 +1,10 @@
-﻿<Window x:Class="lolapitestwpf.ErrorWindow"
+﻿<Window x:Name="Error" x:Class="lolapitestwpf.ErrorWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="SOMETHING WENT WRONG!" Height="100" Width="350" Closing="Window_Closing">
+        Title="SOMETHING WENT WRONG!" Height="100" Width="350" Closing="ErrorClose">
     <Grid>
         <Label x:Name="Label" Content="SOMETHING WENT WRONG!" Margin="86,20,0,0" Height="29" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170"/>
 

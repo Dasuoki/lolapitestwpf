@@ -12,9 +12,9 @@ namespace lolapitestwpf
             InitializeComponent();
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void ErrorClose(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Hide();
+            Visibility = Visibility.Collapsed;
             e.Cancel = true;
         }
     }

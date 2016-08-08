@@ -1,4 +1,4 @@
-﻿<Window x:Class="lolapitestwpf.MainWindow"
+﻿<Window x:Name="Main" x:Class="lolapitestwpf.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -32,7 +32,7 @@
         <Label x:Name="GameTyp" Content="Game type: " HorizontalAlignment="Left" Margin="370,100,0,0" VerticalAlignment="Top"/>
         <Label x:Name="GameMod" Content="Game mode: " HorizontalAlignment="Left" Margin="370,125,0,0" VerticalAlignment="Top"/>
         <Label x:Name="GameMap" Content="Map: " HorizontalAlignment="Left" Margin="370,150,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="GameNotFoundLbl" Content="No current game data was found!" HorizontalAlignment="Left" Margin="456,108,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+        <Label x:Name="GameNotFoundLbl" Content="No current game data was found!" HorizontalAlignment="Left" Margin="410,108,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
 
     </Grid>
 </Window>
