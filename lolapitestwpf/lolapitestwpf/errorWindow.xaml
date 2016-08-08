@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="SOMETHING WENT WRONG!" Height="100" Width="350" Closing="ErrorClose">
+        Title="SOMETHING WENT WRONG!" Height="100" Width="350">
     <Grid>
         <Label x:Name="Label" Content="SOMETHING WENT WRONG!" Margin="86,20,0,0" Height="29" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170"/>
 
