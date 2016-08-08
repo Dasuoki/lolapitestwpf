@@ -3,14 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:lolapitestwpf"
         mc:Ignorable="d"
         Title="lolapitestapp" Height="400" Width="700">
     <Grid>
-        <Label x:Name="label" Content="Summoner name:" HorizontalAlignment="Left" Margin="45,20,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="nameBox" HorizontalAlignment="Left" Height="23" Margin="45,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="label1" Content="Region:" HorizontalAlignment="Left" Margin="190,20,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="regionPicker" HorizontalAlignment="Left" Margin="190,50,0,0" VerticalAlignment="Top" Width="120">
+        <Label x:Name="Label" Content="Summoner name:" HorizontalAlignment="Left" Margin="45,20,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="23" Margin="45,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="RegionLbl" Content="Region:" HorizontalAlignment="Left" Margin="190,20,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="RegionPicker" HorizontalAlignment="Left" Margin="190,50,0,0" VerticalAlignment="Top" Width="120">
             <ComboBoxItem Content="BR"/>
             <ComboBoxItem Content="EUNE"/>
             <ComboBoxItem Content="EUW"/>
@@ -23,17 +22,17 @@
             <ComboBoxItem Content="RU"/>
             <ComboBoxItem Content="TR"/>
         </ComboBox>
-        <Button x:Name="button" Content="Refresh" HorizontalAlignment="Left" Margin="45,290,0,0" VerticalAlignment="Top" Width="120" Height="50" Click="doMagic" Background="AliceBlue"/>
-        <Image x:Name="summonerIcon" HorizontalAlignment="Left" Height="100" Margin="45,100,0,0" VerticalAlignment="Top" Width="100" Stretch="Fill"/>
-        <Label x:Name="idLbl" Content="ID: " HorizontalAlignment="Left" Margin="170,100,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="nameLbl" Content="Name: " HorizontalAlignment="Left" Margin="170,125,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="levelLbl" Content="Level: " HorizontalAlignment="Left" Margin="170,150,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="button1" Content="Get Current Match" HorizontalAlignment="Left" Margin="446,44,0,0" VerticalAlignment="Top" Width="125" Height="35" Click="getCurrentGame"/>
+        <Button x:Name="Button" Content="Refresh" HorizontalAlignment="Left" Margin="45,290,0,0" VerticalAlignment="Top" Width="120" Height="50" Click="DoMagic" Background="AliceBlue"/>
+        <Image x:Name="SummonerIcon" HorizontalAlignment="Left" Height="100" Margin="45,100,0,0" VerticalAlignment="Top" Width="100" Stretch="Fill"/>
+        <Label x:Name="IdLbl" Content="ID: " HorizontalAlignment="Left" Margin="170,100,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="NameLbl" Content="Name: " HorizontalAlignment="Left" Margin="170,125,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="LevelLbl" Content="Level: " HorizontalAlignment="Left" Margin="170,150,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="GetMatchBtn" Content="Get Current Match" HorizontalAlignment="Left" Margin="446,44,0,0" VerticalAlignment="Top" Width="125" Height="35" Click="GetCurrentGame"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="100" Margin="45,100,0,0" VerticalAlignment="Top" Width="100"/>
-        <Label x:Name="gameTyp" Content="Game type: " HorizontalAlignment="Left" Margin="370,100,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="gameMod" Content="Game mode: " HorizontalAlignment="Left" Margin="370,125,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="gameMap" Content="Map: " HorizontalAlignment="Left" Margin="370,150,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="gameNotFoundLbl" Content="No current game data was found!" HorizontalAlignment="Left" Margin="456,108,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+        <Label x:Name="GameTyp" Content="Game type: " HorizontalAlignment="Left" Margin="370,100,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="GameMod" Content="Game mode: " HorizontalAlignment="Left" Margin="370,125,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="GameMap" Content="Map: " HorizontalAlignment="Left" Margin="370,150,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="GameNotFoundLbl" Content="No current game data was found!" HorizontalAlignment="Left" Margin="456,108,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
 
     </Grid>
 </Window>

@@ -13,100 +13,131 @@ namespace lolapitestwpf
             InitializeComponent();
         }
 
-        private string apikey = "?api_key=RGAPI-B1F0AC0F-8798-418B-B4A4-A2A9A1F1EAC2";
-        private string name = "";
-        private string region = "";
-        private string id = "";
-        private string[] reglist = { "BR1", "EUN1", "EUW1", "JP1", "KR", "LA1", "LA2", "NA1", "OC1", "PBE1", "RU", "TR1" };
+        private const string ApiKey = "?api_key=RGAPI-B1F0AC0F-8798-418B-B4A4-A2A9A1F1EAC2";
+        private string _name = "";
+        private string _region = "";
+        private string _id = "";
+        private readonly string[] _reglist = { "BR1", "EUN1", "EUW1", "JP1", "KR", "LA1", "LA2", "NA1", "OC1", "PBE1", "RU", "TR1" };
 
-        private Dictionary<string, string> Summoner;
-        private dynamic currentGameInfo;
+        private Dictionary<string, string> _summoner;
+        private dynamic _currentGameInfo;
 
-        private Window errorWindow1 = new errorWindow();
+        private readonly Window _errorWindow1 = new ErrorWindow();
 
-        private string dlBasicInfoJson(string region, string jsonadd1, string jsonadd2)
+        private string DlBasicInfoJson(string region, string jsonadd1, string jsonadd2)
         {
             WebClient client = new WebClient();
-            return client.DownloadString("https://" + region + jsonadd1 + region + jsonadd2 + name + apikey);
+            return client.DownloadString("https://" + region + jsonadd1 + region + jsonadd2 + _name + ApiKey);
         }
 
-        private string dlCurrentGameJson(string jsonadd)
+        private string DlCurrentGameJson(string jsonadd)
         {
-            WebClient client = new WebClient();
-            return client.DownloadString("https://" + region + jsonadd + reglist[regionPicker.SelectedIndex] + "/" + id + apikey);
-        }
-
-        private void setCurrentGameNotFound()
-        {
-            gameMap.Visibility = Visibility.Hidden;
-            gameMod.Visibility = Visibility.Hidden;
-            gameTyp.Visibility = Visibility.Hidden;
-            gameNotFoundLbl.Visibility = Visibility.Visible;
-        }
-
-        private void getBasicInfo()
-        {
-            setSummoner();
-            if (region == "" || name == "")
+            var http = (HttpWebRequest)WebRequest.Create("https://" + _region + jsonadd + _reglist[RegionPicker.SelectedIndex] + "/" + _id + ApiKey);
+            HttpWebResponse response; //= null;
+            try
             {
-                errorWindow1.Show();
+                 response = (HttpWebResponse)http.GetResponse();
+            }
+            catch (WebException we)
+            {
+                response = (HttpWebResponse)we.Response;
+            }
+            var status = response.StatusCode;
+            if (status == HttpStatusCode.NotFound || status == HttpStatusCode.Forbidden)
+            {
+                _errorWindow1.Show();
+                return "404";
             }
             else
             {
-                string summonerInfo = dlBasicInfoJson(region, ".api.pvp.net/api/lol/", "/v1.4/summoner/by-name/");
-                summonerInfo = summonerInfo.Remove(0, 4 + name.Length);
-                summonerInfo = summonerInfo.Remove(summonerInfo.Length - 1);
-                Summoner = JsonConvert.DeserializeObject<Dictionary<string, string>>(summonerInfo);
-                id = Summoner["id"];
+                WebClient client = new WebClient();
+                return client.DownloadString("https://" + _region + jsonadd + _reglist[RegionPicker.SelectedIndex] + "/" + _id + ApiKey);
             }
         }
 
-        private void setBasicInfo()
+        private void SetCurrentGameNotFound()
         {
-            idLbl.Content = "ID: " + id;
-            nameLbl.Content = "Name: " + Summoner["name"];
-            levelLbl.Content = "Level: " + Summoner["summonerLevel"];
-            summonerIcon.Source = (ImageSource)new ImageSourceConverter().ConvertFromString("http://ddragon.leagueoflegends.com/cdn/6.15.1/img/profileicon/" + Summoner["profileIconId"] + ".png");
+            GameMap.Visibility = Visibility.Hidden;
+            GameMod.Visibility = Visibility.Hidden;
+            GameTyp.Visibility = Visibility.Hidden;
+            GameNotFoundLbl.Visibility = Visibility.Visible;
         }
 
-        private void getCurrentInfo()
+        private void GetBasicInfo()
         {
-            string currentGameInfoJ = dlCurrentGameJson(".api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/");
-            currentGameInfo = JsonConvert.DeserializeObject(currentGameInfoJ);
-        }
-
-        private void setCurrentInfo()
-        {
-            getCurrentInfo();
-            gameMod.Content = currentGameInfo.gameMode;
-            gameTyp.Content = currentGameInfo.gameType;
-            var mapId = currentGameInfo.mapId;
-            gameMap.Content = mapId;
-        }
-
-        private void updateUI()
-        {
-            setBasicInfo();
-        }
-
-        private void setSummoner()
-        {
-            name = nameBox.Text;
-            region = regionPicker.Text.ToLower();
-        }
-
-        private void doMagic(object sender, RoutedEventArgs e)
-        {
-            getBasicInfo();
-            if (!errorWindow1.IsVisible)
+            SetSummoner();
+            if (_region == "" || _name == "")
             {
-                updateUI();
+                _errorWindow1.Show();
+            }
+            else
+            {
+                var summonerInfo = DlBasicInfoJson(_region, ".api.pvp.net/api/lol/", "/v1.4/summoner/by-name/");
+                summonerInfo = summonerInfo.Remove(0, 4 + _name.Length);
+                summonerInfo = summonerInfo.Remove(summonerInfo.Length - 1);
+                _summoner = JsonConvert.DeserializeObject<Dictionary<string, string>>(summonerInfo);
+                _id = _summoner["id"];
             }
         }
 
-        private void getCurrentGame(object sender, RoutedEventArgs e)
+        private void SetBasicInfo()
         {
-            setCurrentInfo();
+            IdLbl.Content = "ID: " + _id;
+            NameLbl.Content = "Name: " + _summoner["name"];
+            LevelLbl.Content = "Level: " + _summoner["summonerLevel"];
+            SummonerIcon.Source = (ImageSource)new ImageSourceConverter().ConvertFromString("http://ddragon.leagueoflegends.com/cdn/6.15.1/img/profileicon/" + _summoner["profileIconId"] + ".png");
+        }
+
+        private void GetCurrentInfo()
+        {
+            var currentGameInfoJ = DlCurrentGameJson(".api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/");
+            if (currentGameInfoJ.Length > 3)
+            {
+                _currentGameInfo = JsonConvert.DeserializeObject(currentGameInfoJ);
+            }
+        }
+
+        private void SetCurrentInfo()
+        {
+            GetCurrentInfo();
+            if (_currentGameInfo == null)
+                SetCurrentGameNotFound();
+            else
+            {
+                GameMod.Content = _currentGameInfo.gameMode;
+                GameTyp.Content = _currentGameInfo.gameType;
+                var mapId = _currentGameInfo.mapId;
+                GameMap.Content = mapId;
+            }
+        }
+
+        private void UpdateUi()
+        {
+            SetBasicInfo();
+        }
+
+        private void SetSummoner()
+        {
+            _name = NameBox.Text;
+            _region = RegionPicker.Text.ToLower();
+        }
+
+        private void DoMagic(object sender, RoutedEventArgs e)
+        {
+            GetBasicInfo();
+            if (!_errorWindow1.IsVisible)
+            {
+                UpdateUi();
+            }
+        }
+
+        private void GetCurrentGame(object sender, RoutedEventArgs e)
+        {
+            if (!_errorWindow1.IsVisible)
+            {
+                SetCurrentInfo();
+            }
+            
         }
     }
 }

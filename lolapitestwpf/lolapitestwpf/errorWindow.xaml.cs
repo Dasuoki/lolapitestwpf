@@ -5,9 +5,9 @@ namespace lolapitestwpf
     /// <summary>
     /// Interaction logic for errorWindow.xaml
     /// </summary>
-    public partial class errorWindow : Window
+    public partial class ErrorWindow : Window
     {
-        public errorWindow()
+        public ErrorWindow()
         {
             InitializeComponent();
         }
